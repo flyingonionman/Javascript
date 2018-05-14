@@ -1,0 +1,100 @@
+<script type="text/javascript" >	
+//Minyoung Na 2018 March
+
+	
+document.getElementById("convert").addEventListener("click", funct);
+document.getElementById("find").addEventListener("click", find);
+
+
+function find() {
+	
+	var x = Number(document.getElementById("f1").value);
+	var y = Number(document.getElementById("f2").value);
+	
+	if (!isNaN(x) && !isNaN(y)){
+	
+		if (x != 1 && y!=1 && x!=y ){
+			reverse(x,y);
+		}	
+	} 
+		
+	
+}
+	
+
+function funct() {
+	
+	var x = Number(document.getElementById("f1").value);
+	var y = Number(document.getElementById("f2").value);
+    var z = Number(document.getElementById("f3").value);
+	
+	if (!isNaN(x) && !isNaN(y) && !isNaN(z)){
+	    
+		var temp2;
+		// There is definitely a more elegant way to do this but I am dumb
+		if (y>z && y>x){temp2 = y;y = z;z = temp2;} // swaps y and z if x is the largest
+		if (x>z && x>y){temp2 = x;x = z;z = temp2;} // swaps x and z if x is the largest
+		if (x %2 == 0 ){temp2 = x;x = y;y = temp2;} // swaps x and y if x is even
+		
+		if (Math.pow(x,2)+Math.pow(y,2) == Math.pow(z,2)){
+			var s = (y % x); 
+			var t = (z % x);
+			if (x != 1 && x!=y && x!=z && y!=z){
+				gcd = euclid(s,t);
+			}	
+			document.getElementById("zone").innerHTML += ("n=") + s/gcd +(",m=") +  t/gcd + ("<br>	");
+		}
+		else (document.getElementById("zone").innerHTML += "Not a pythagorean triple <br>")
+	}
+		
+	
+}
+
+	
+function euclid(n1, n2){
+			var temp;
+			var r;
+			if (n1 < n2){	temp = n1; n1 = n2;	n2 = temp;}
+			do
+			{
+				r = n1 % n2 ;
+				n1 = n2;
+				n2 = r;
+			}while (r != 0);
+
+			return n1;
+		} 
+
+function reverse(n1, n2){
+			var temp;
+			var q;
+
+			var x=0;var x_2=1;
+			var y=1;var y_2=0;
+			var r = n2;var r_2= n1; // there are two sets of each variables because the gcd algorithm works in steps.
+			
+			while (r!=0)
+			{
+				q = Math.floor(r_2/r);
+				
+				temp = r;
+				r =r_2 - q * temp;
+				r_2 = temp;
+				
+				temp = x;
+				x = x_2 - q * temp;
+				x_2 = temp;
+				
+				temp = y;
+				y = y_2 - q * temp;
+				y_2 = temp;
+				
+				
+			}
+		    document.getElementById("zone").innerHTML += "x= " + x_2 + " y= " + y_2 + "<br>";  ;
+			
+			
+		} 
+		
+
+</script>
